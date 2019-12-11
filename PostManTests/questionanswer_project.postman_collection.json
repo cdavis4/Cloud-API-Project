@@ -1,0 +1,4244 @@
+{
+	"info": {
+		"_postman_id": "ea6484a1-9e26-4b8a-9a87-b2e08df29b62",
+		"name": "Final Project Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create question 401 with invalid JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Unauthorized, Missing or Invalid JWT Token used.\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{invalid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a question 400 with missing attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a question with wrong attribute type 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1,\r\n  \"date\": \"This is not a date\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a question 400 with wrong attribute",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"length\": 1,\r\n  \"date\": \"12/20/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question text/html Accept Header 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question 201 with valid JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"question_id\", pm.response.json()[\"id\"]);",
+							"pm.environment.set(\"created_by\", pm.response.json()[\"created_by\"]);",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq(\"Where are your knees?\");",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/03/2019\");",
+							"    pm.expect(pm.response.json()[\"answers\"]).to.eq(null);",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/questions/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Where are your knees?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question 2 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"question2_id\", pm.response.json()[\"id\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"What is your favorite color\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question 3 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"question3_id\", pm.response.json()[\"id\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"What is your favorite animal?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question 4 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"question4_id\", pm.response.json()[\"id\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Is today the best day ever?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question 5 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"question5_id\", pm.response.json()[\"id\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Will you have dessert?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View questions  No JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							" let jsonData = pm.response.json()",
+							"",
+							"pm.test(\"response should not have next link\", function () {",
+							"    pm.response.to.not.have.property(\"next\");",
+							"});",
+							"pm.test(\"should have number representing total questions\", function () {",
+							"   pm.expect(jsonData).to.have.property('number');",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question 6 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"question6_id\", pm.response.json()[\"id\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"What do you like best?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question same text 403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"403 status code\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Where are your knees?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create question wrong content type 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/html"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 401 with invalid JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"401 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"Unauthorized, Missing or Invalid JWT Token used.\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{invalid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a answer 400 with missing attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a answer 400 with attribute wrong type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"400 error message\", function () {",
+							"     pm.expect(pm.response.json()[\"Error\"]).to.eq(\"The request object is missing at least one of the required attributes\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"This is not a date\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 201 with valid JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"answer_id\", pm.response.json()[\"id\"]);",
+							"pm.environment.set(\"created_by\", pm.response.json()[\"created_by\"]);",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"score\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq(\"What is chocolate\");",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/03/2019\");",
+							"    pm.expect(pm.response.json()[\"questions\"]).to.eq(null);",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/answers/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"What is chocolate\",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 2 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"answer2_id\", pm.response.json()[\"id\"]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 3 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"answer3_id\", pm.response.json()[\"id\"]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User items with valid JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{created_by}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{created_by}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User items with invalid user id 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{incorrect_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{incorrect_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User items with invalid JWT 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{invalid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{created_by}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{created_by}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User items with incorrect User 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{seconduser_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/users/{{incorrect_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"users",
+						"{{incorrect_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 4 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"answer4_id\", pm.response.json()[\"id\"]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 5 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"answer5_id\", pm.response.json()[\"id\"]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create answer 6 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ecff411-7a3b-42dc-b33a-52116065953c",
+						"exec": [
+							"pm.test(\"201 status code\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.environment.set(\"answer6_id\", pm.response.json()[\"id\"]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll call my friends to ask about their plans. I heard that a new restaurant opened / a nice comedy is playing in the cinemas / there are big discounts at the paintball club. We should all go out together. \",\r\n  \"score\": 1,\r\n  \"date\": \"12/03/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET answer with valid JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET answer with bad id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{incorrect_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{incorrect_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET question with bad id 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{incorrect_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{incorrect_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET question with No JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET answer with No JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View answers  No JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							" let jsonData = pm.response.json()",
+							"//will fail if boats are left in datastore and all tests are not run at once.",
+							"pm.test(\"Only one answer currently exists\", function(){",
+							"   pm.expect(Object.keys(jsonData.results).length).to.eq(5);",
+							"});",
+							"",
+							"pm.test(\"response should not have next link\", function () {",
+							"    pm.response.to.not.have.property(\"next\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View answers text/html Accept Header 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "text/html"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding answer  to question 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding answer  to question twice 403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"403 status code\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET question with valid JWT 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/03/2019\");",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq(\"Where are your knees?\");",
+							"    pm.expect(pm.response.json()[\"answer\"]).not.eq(\"null\");",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/questions/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete answer  to question noncreator JWT 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{seconduser_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete answer to question  204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d11f72d-518d-4214-a6fd-40ba661ed543",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete answer  to question no relationship 403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"403 status code\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PATCH no text 303",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"303 status code\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq('Where are your knees?');",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/08/2019\");",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/questions/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 2,\r\n  \"date\": \"12/08/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PATCH does not exist 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 2,\r\n  \"date\": \"12/08/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{incorrect_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{incorrect_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PATCH 303",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"303 status code\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq(\"You are fully rested because your week was perfect and everything went great. How are you going to spend your weekend?\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/08/2019\");",
+							"    pm.expect(pm.response.json()[\"answers\"]).not.eq(\"null\");",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/questions/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are fully rested because your week was perfect and everything went great. How are you going to spend your weekend?\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PATCH not JSON 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/html"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are fully rested because your week was perfect and everything went great. How are you going to spend your weekend?\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PATCH not JSON 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are fully rested because your week was perfect and everything went great. How are you going to spend your weekend?\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PATCH no text 303",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"303 status code\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq(\"What is chocolate\");",
+							"    pm.expect(pm.response.json()[\"score\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/08/2019\");",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/answers/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 2,\r\n  \"date\": \"12/08/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PATCH does not exist 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"404 status code\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": 2,\r\n  \"date\": \"12/08/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{incorrect_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{incorrect_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PATCH 303",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"303 status code\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"    pm.expect(pm.response.json()[\"text\"]).to.eq(\"I’ll stay at home reading a book or have an intimate dinner with a few friends.\");",
+							"    pm.expect(pm.response.json()[\"score\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/08/2019\");",
+							"        const self_url = pm.environment.get(\"app_url\") + \"/answers/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"    pm.expect(pm.response.json()['questions']).to.eq(null);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll stay at home reading a book or have an intimate dinner with a few friends.\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer at Root URL 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question at Root URL 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"405 status code\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Questions Test Pagination bc 6 questions 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let jsonData = pm.response.json()",
+							"",
+							"pm.test(\"should have next link\", function () {",
+							"   pm.expect(jsonData).to.have.property('next');",
+							"})",
+							"pm.test(\"number of questions is correctly listed\", function () {",
+							"  pm.expect(jsonData.number).to.eq(6);",
+							"    ",
+							"});",
+							"pm.test(\"next link should have url\", function () {",
+							"   let next_url = pm.environment.get(\"app_url\") +'/questions?pages=2'",
+							"   pm.expect(jsonData.next).to.eq(next_url)",
+							"});",
+							"//will fail if boats are deleted and this is run out of order",
+							"pm.test(\"5 questions exists on page 1\", function(){",
+							"   pm.expect(Object.keys(pm.response.json()['results']).length).to.eq(5);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Answers Test Pagination bc 6 answers 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let jsonData = pm.response.json()",
+							"",
+							"pm.test(\"should have next link\", function () {",
+							"   pm.expect(jsonData).to.have.property('next');",
+							"})",
+							"pm.test(\"number of questions is correctly listed\", function () {",
+							"  pm.expect(jsonData.number).to.eq(6);",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"next link should have url\", function () {",
+							"   let next_url = pm.environment.get(\"app_url\") +'/answers?pages=2'",
+							"   pm.expect(jsonData.next).to.eq(next_url)",
+							"});",
+							"",
+							"pm.test(\"5 answers exists on page 1\", function(){",
+							"   pm.expect(Object.keys(pm.response.json()['results']).length).to.eq(5);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Questions Test Pagination 2d page questions 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"let jsonData = pm.response.json()",
+							"//will fail if boats are deleted and this is run out of order",
+							"pm.test(\"Only 1 question exists on page 2\", function(){",
+							"   pm.expect(Object.keys(pm.response.json()['results']).length).to.eq(1);",
+							"});",
+							"",
+							"pm.test(\"number of questions is correctly listed\", function () {",
+							"  pm.expect(jsonData.number).to.eq(6);",
+							"    ",
+							"});",
+							"//will fail if boats are deleted and this is run out of order",
+							"pm.test(\"should not have next link\", function () {",
+							"   pm.expect(jsonData).to.not.have.property('next');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions?pages=2",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions"
+					],
+					"query": [
+						{
+							"key": "pages",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View All Answers Test Pagination 2d page answers 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"200 status code\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"//will fail if boats are deleted and this is run out of order",
+							"pm.test(\"Only 1 answer exists on page 2\", function(){",
+							"   pm.expect(Object.keys(pm.response.json()['results']).length).to.eq(1);",
+							"});",
+							"",
+							"let jsonData = pm.response.json()",
+							"//will fail if boats are deleted and this is run out of order",
+							"pm.test(\"should not have next link\", function () {",
+							"   pm.expect(jsonData).to.not.have.property('next');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers?pages=2",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers"
+					],
+					"query": [
+						{
+							"key": "pages",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PUT noncreator 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{seconduser_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/06/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PUT valid JWT and body 303",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"303 status code\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"     pm.expect(pm.response.json()[\"text\"]).to.eq(\"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\");",
+							"    pm.expect(pm.response.json()[\"type\"]).to.eq(1);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/06/2019\");",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/questions/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"    pm.expect(pm.response.json()[\"answers\"]).not.eq(\"null\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/06/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit question PUT uncomplete body 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PUT invalid JWT 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{invalid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"You are totally exhausted because your week was endless and less than great. How are you going to spend your weekend?\",\r\n  \"type\": 1,\r\n  \"date\": \"12/06/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PUT valid JWT and body 303",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"303 status code\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"",
+							"pm.test(\"content is valid\", function () {",
+							"     pm.expect(pm.response.json()[\"text\"]).to.eq(\"I’ll switch on the Don’t disturb mode on my phone and stay at home. I’ll watch a new episode of my favorite TV show, do a puzzle, and take a long bath with a book\");",
+							"    pm.expect(pm.response.json()[\"score\"]).to.eq(2);",
+							"    pm.expect(pm.response.json()[\"date\"]).to.eq(\"12/06/2019\");",
+							"    const self_url = pm.environment.get(\"app_url\") + \"/answers/\" + pm.response.json()[\"id\"];",
+							"    pm.expect(pm.response.json()[\"self\"]).to.eq(self_url);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"I’ll switch on the Don’t disturb mode on my phone and stay at home. I’ll watch a new episode of my favorite TV show, do a puzzle, and take a long bath with a book\",\r\n  \"score\": 2,\r\n  \"date\": \"12/06/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer PUT incomplete body 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"400 status code\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"type\": 2,\r\n  \"date\": \"12/06/2019\"\r\n}"
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit answer body not JSON 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24735bb1-3d60-4e6e-9ebd-868df58b2f14",
+						"exec": [
+							"pm.test(\"406 status code\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "text/html"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question with invalid JWT 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{invalid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question with noncreator JWT 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{seconduser_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer with invalid JWT 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"401 status code\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{invalid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question with valid JWT 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question 2 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question2_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question2_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question 3 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question3_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question3_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question 4 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question4_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question4_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question 5 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question5_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question5_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete question 6  204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/questions/{{question6_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"questions",
+						"{{question6_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer with valid JWT 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer 2 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer2_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer2_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer 3 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer3_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer3_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer 4  204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer4_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer4_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer 5 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer5_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer5_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete answer6 with 204",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00b996e8-52af-4a08-8ce2-22097177a90f",
+						"exec": [
+							"pm.test(\"204 status code\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{valid_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{app_url}}/answers/{{answer6_id}}",
+					"host": [
+						"{{app_url}}"
+					],
+					"path": [
+						"answers",
+						"{{answer6_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
